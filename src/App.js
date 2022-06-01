@@ -37,11 +37,11 @@ function App() {
 
     <p>La nhan vien {employee.name}</p>
 
-    <ul>
-      {colorList.map(color =>
-      <li style={{color}}>{color}</li>
-      )}
-    </ul>
+      <ul>
+        {colorList.map(color =>
+        <li style={{color}}>{color}</li>
+        )}
+      </ul>
     </div>
   );
 }
