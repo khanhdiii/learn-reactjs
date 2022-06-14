@@ -1,47 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+// import './App.css';
+import React, { useEffect } from 'react';
+import {
+  NavLink,
+  Route,
+  Switch,
+} from 'react-router-dom/cjs/react-router-dom.min';
+import ProductApi from './api/productApi';
+import NotFound from './components/NotFound';
+import AlbumFeature from './features/Album';
+import TodoFeature from './features/Todo/pages/ListPage';
 
 function App() {
-  const name  = "khanh";
-  const age = 22;
-  const isMale = true;
-  const employee = {
-    name : "khanh duy"
-  };
-  const colorList = ["Green", "Red", "Blue"];
+  useEffect(() => {
+    const fetachProducts = async () => {
+      const params = {
+        _limit: 10,
+      };
+      const productList = await ProductApi.getAll(params);
+      console.log(productList);
+    };
+    fetachProducts();
+  }, []);
   return (
     <div className="App">
-     <p>Xin chao {name}</p>
-     <p>Nam nay khanh {age} tuoi</p>
-
-     {isMale ? <p>Male</p> : <p>Female</p>}
-     {isMale && <p>Male</p>}
-     {!isMale && <p>Female</p>}
-
-
-    {isMale && (
-      <div>
-        <p>Male 1</p>
-        <p>Male 2</p>
-        <p>Male 3</p>
-      </div>
-    )}
-
-    {isMale && (
-      <>
-        <p>Male 4</p>
-        <p>Male 5</p>
-        <p>Male 6</p>
-      </>
-    )}
-
-    <p>La nhan vien {employee.name}</p>
-
-      <ul>
-        {colorList.map(color =>
-        <li style={{color}}>{color}</li>
-        )}
-      </ul>
+      Home Page
+      {/* <p><Link to="/todos">Todo</Link></p>
+      <p><Link to="/albums">Albums</Link></p> */}
+      <p>
+        <NavLink to="/todos">Todo</NavLink>
+      </p>
+      <p>
+        <NavLink to="/albums">Albums</NavLink>
+      </p>
+      <Switch>
+        {/* <Redirect from="/todos" to="/" exact /> */}
+        <Route path="/todos" component={TodoFeature} />
+        <Route path="/albums" component={AlbumFeature} />
+        <Route component={NotFound} />
+      </Switch>
+      Footer
     </div>
   );
 }
