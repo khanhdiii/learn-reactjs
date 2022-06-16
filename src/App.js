@@ -9,6 +9,7 @@ import ProductApi from './api/productApi';
 import NotFound from './components/NotFound';
 import AlbumFeature from './features/Album';
 import TodoFeature from './features/Todo/pages/ListPage';
+import CouterFeature from './features/Counter/index';
 
 function App() {
   useEffect(() => {
@@ -34,9 +35,10 @@ function App() {
       </p>
       <Switch>
         {/* <Redirect from="/todos" to="/" exact /> */}
+        <Route path="/" component={CouterFeature} exact />
         <Route path="/todos" component={TodoFeature} />
         <Route path="/albums" component={AlbumFeature} />
-        <Route component={NotFound} />
+        {/* <Route component={NotFound} /> */}
       </Switch>
       Footer
     </div>
