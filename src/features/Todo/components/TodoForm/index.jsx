@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types';
-import { useForm } from 'react-hook-form';
 import React from 'react';
+import { useForm } from 'react-hook-form';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { TextField } from '@mui/material/TextField';
-import { Input } from '@mui/icons-material';
 import InputField from './../../../../components/form-controls/InputField/index';
 
 TodoForm.propTypes = {
@@ -37,6 +35,7 @@ function TodoForm(props) {
     }
     form.reset();
   };
+
   return (
     <form onSubmit={form.handleSubmit(handleSubmit)}>
       <InputField label="Your name" name="title" form={form} />

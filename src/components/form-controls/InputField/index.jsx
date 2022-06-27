@@ -1,14 +1,13 @@
 import TextField from '@mui/material/TextField';
 import PropTypes from 'prop-types';
-import { Controller } from 'react-hook-form';
 import React from 'react';
+import { Controller } from 'react-hook-form';
 InputField.propTypes = {
   form: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
 
   label: PropTypes.string,
   disabled: PropTypes.bool,
-  formState: PropTypes.isRequired,
 };
 
 function InputField(props) {
@@ -16,15 +15,15 @@ function InputField(props) {
   const {
     formState: { errors },
   } = form;
-  const hasError = errors[name];
 
-  console.log(errors[name]);
+  const hasError = errors[name];
   return (
     <Controller
       name={name}
       control={form.control}
       render={({ field: { onChange, onBlur, value, name, ref } }) => (
         <TextField
+          margin="normal"
           onBlur={onBlur}
           onChange={onChange}
           value={value}
@@ -32,9 +31,8 @@ function InputField(props) {
           label={label}
           disabled={disabled}
           fullWidth
-          id="filled-error-helper-text"
           error={!!hasError}
-          // helperText={errors[name]?.message}
+          helperText={errors[name] ? errors[name].message : ''}
         />
       )}
     />

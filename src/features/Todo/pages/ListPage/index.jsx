@@ -1,13 +1,12 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
-import TodoList from '../../components/TodoList/index';
 import queryString from 'query-string';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   useLocation,
   useRouteMatch,
 } from 'react-router-dom/cjs/react-router-dom.min';
-import { useHistory } from 'react-router-dom';
 import TodoForm from '../../components/TodoForm';
+import TodoList from '../../components/TodoList/index';
 
 TodoFeature.propTypes = {};
 
@@ -36,6 +35,7 @@ function TodoFeature(props) {
   const [todoList, setTodoList] = useState(initTodoList);
   const [filterStatus, setFilterStatus] = useState(() => {
     const params = queryString.parse(location.search);
+    console.log(location.search);
     return params.status || 'all';
   });
 
