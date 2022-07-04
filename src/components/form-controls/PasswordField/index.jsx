@@ -49,11 +49,13 @@ function PasswordField(props) {
           render={({ field: { onChange, onBlur, value, name, ref } }) => (
             <TextField
               name={name}
+              error={hasError}
               control={form.control}
               type={showPassword ? 'text' : 'password'}
               onBlur={onBlur}
               value={value}
               label={label}
+              inputRef={ref}
               onChange={onChange}
               endAdornment={
                 <InputAdornment position="end">

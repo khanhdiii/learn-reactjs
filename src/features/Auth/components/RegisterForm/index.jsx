@@ -53,7 +53,7 @@ function RegisterForm(props) {
       retypePassword: yup
         .string()
         .required('Please enter your password')
-        .min(6, 'Please enter min password longer 6'),
+        .oneOf([yup.ref('password')], 'Password does not match'),
     })
     .required();
 
