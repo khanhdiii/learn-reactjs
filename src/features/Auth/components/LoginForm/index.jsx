@@ -1,12 +1,12 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { Avatar, Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
-
 import InputField from 'components/form-controls/InputField';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import PasswordField from 'components/form-controls/PasswordField';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,33 +32,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-RegisterForm.propTypes = {
+LoginForm.propTypes = {
   onSubmit: PropTypes.func,
 };
 
-function RegisterForm(props) {
+function LoginForm(props) {
   const classes = useStyles();
 
   const schema = yup.object().shape({
-    fullName: yup
-      .string()
-      .required('Please enter your full name.')
-      .test('Should has at least two words.', 'Please enter at least two words.', (value) => {
-        return value.split(' ').length >= 2;
-      }),
-    email: yup.string().required('Please enter your email.').email('Please enter an valid email address.'),
-    password: yup.string().required('Please enter your password.').min(6, 'Please enter at least six characters.'),
-    retypePassword: yup
-      .string()
-      .required('Please retype your password.')
-      .oneOf([yup.ref('password')], 'Password does not match.'),
+    identifier: yup.string().required('Please enter your email.').email('Please enter an valid email address.'),
+    password: yup.string().required('Please enter your password.'),
   });
   const form = useForm({
     defaultValues: {
-      fullName: '',
-      email: '',
+      identifier: '',
       password: '',
-      retypePassword: '',
     },
     reValidateMode: 'onSubmit',
     resolver: yupResolver(schema),
@@ -80,13 +68,11 @@ function RegisterForm(props) {
       </Avatar>
 
       <Typography className={classes.title} component="h3" variant="h5">
-        Create An Account
+        Sign In
       </Typography>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <InputField name="fullName" label="Full Name" form={form}></InputField>
-        <InputField name="email" label="Email" form={form}></InputField>
+        <InputField name="identifier" label="Email" form={form}></InputField>
         <PasswordField name="password" label="Password" form={form}></PasswordField>
-        <PasswordField name="retypePassword" label="Retype Password" form={form}></PasswordField>
 
         <Button
           disabled={isSubmitting}
@@ -97,11 +83,11 @@ function RegisterForm(props) {
           fullWidth
           size="large"
         >
-          Create an account
+          Sign in
         </Button>
       </form>
     </div>
   );
 }
 
-export default RegisterForm;
+export default LoginForm;

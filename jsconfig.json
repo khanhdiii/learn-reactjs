@@ -1,9 +1,9 @@
 {
-    "compilerOptions": {
-      "jsx": "react",
-      "module": "ES6",
-      "target": "es6",
-      "baseUrl": "src"
-    },
-    "include": ["src/**/*"]
-  }
+  "compilerOptions": {
+    "module": "es6",
+    "target": "es6",
+    "baseUrl": "src",
+    "moduleResolution": "node"
+  },
+  "include": ["src/**/*"]
+}

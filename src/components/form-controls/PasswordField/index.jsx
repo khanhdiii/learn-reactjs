@@ -1,81 +1,64 @@
-import TextField from '@mui/material/TextField';
+import { FormHelperText } from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Controller } from 'react-hook-form';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import FilledInput from '@mui/material/FilledInput';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 PasswordField.propTypes = {
   form: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
 
   label: PropTypes.string,
-  disabled: PropTypes.bool,
-  formState: PropTypes.isRequired,
+  disable: PropTypes.bool,
 };
 
 function PasswordField(props) {
-  const { form, name, label, disabled } = props;
-  const {
-    formState: { errors },
-  } = form;
+  const { form, name, label } = props;
+  const { control } = form;
 
-  const hasError = !!errors[name];
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
   const toggleShowPassword = () => {
-    setShowPassword((x) => !x);
+    setShowPassword(!showPassword);
   };
+
   return (
     <div>
-      <FormControl
-        error={hasError}
-        variant="outlined"
-        fullWidth
-        margin="normal"
-      >
-        <InputLabel htmlFor={name}>{label}</InputLabel>
-        <Controller
-          name={name}
-          control={form.control}
-          render={({ field: { onChange, onBlur, value, name, ref } }) => (
-            <TextField
-              name={name}
-              error={hasError}
-              control={form.control}
-              type={showPassword ? 'text' : 'password'}
-              onBlur={onBlur}
-              value={value}
-              label={label}
-              inputRef={ref}
-              onChange={onChange}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={toggleShowPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              disabled={disabled}
-            />
-          )}
-        />
-        <FormHelperText>
-          {!!errors[name] ? errors[name].message : ''}
-        </FormHelperText>
-      </FormControl>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { invalid, isTouched, error } }) => (
+          <>
+            <FormControl error={isTouched && invalid} fullWidth margin="normal" variant="outlined">
+              <InputLabel>{label}</InputLabel>
+              <OutlinedInput
+                id={name}
+                error={invalid}
+                type={showPassword ? 'text' : 'password'}
+                label={label}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton aria-label="toggle password visibility" onClick={toggleShowPassword} edge="end">
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                labelWidth={70}
+                value={value}
+                onBlur={onBlur}
+                onChange={onChange}
+              />
+            </FormControl>
+            <FormHelperText error={invalid}>{error?.message}</FormHelperText>
+          </>
+        )}
+      />
     </div>
   );
 }
