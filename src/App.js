@@ -1,32 +1,23 @@
-// import './App.css';
-import React, { useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
-import ProductApi from './api/productApi';
-import './App.css';
-import Header from './components/Header/index';
+import Header from 'components/Header';
+import ProductFeature from 'features/product';
+import TodoFeature from 'features/Todo/pages/ListPage';
+import { Route, Switch } from 'react-router-dom';
+import NotFound from './components/NotFound';
 import AlbumFeature from './features/Album';
-import CouterFeature from './features/Counter/index';
-import TodoFeature from './features/Todo/pages/ListPage';
+import CounterFeature from './features/Counter';
+
 function App() {
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const params = {
-        _limit: 10,
-      };
-      const productList = await ProductApi.getAll(params);
-      console.log(productList);
-    };
-    fetchProducts();
-  }, []);
   return (
     <div className="App">
       <Header />
       <Switch>
-        <Route path="/" component={CouterFeature} exact />
-        <Route path="/todos" component={TodoFeature} />
-        <Route path="/albums" component={AlbumFeature} />
+        <Route path="/" component={CounterFeature} exact></Route>
+        <Route path="/todos" component={TodoFeature}></Route>
+        <Route path="/albums" component={AlbumFeature}></Route>
+        <Route path="/products" component={ProductFeature}></Route>
+
+        <Route component={NotFound}></Route>
       </Switch>
-      Footer
     </div>
   );
 }
