@@ -1,4 +1,5 @@
 import { Box, Container, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
+import { Pagination } from '@material-ui/lab';
 import productApi from 'api/productApi';
 import queryString from 'query-string';
 import { useEffect, useState } from 'react';
@@ -28,19 +29,24 @@ function ListPage(props) {
   const classes = useStyles();
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filters, setFilters] = useState({
+    _page: 1,
+    _limit: 10,
+  });
 
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await productApi.getAll({ _page: 1, _limit: 10 });
+        const { data, pagination } = await productApi.getAll(filters);
         setProductList(data);
+        console.log(data, pagination);
       } catch (error) {
         console.log('Failed to fetch product list: ', error);
       }
 
       setLoading(false);
     })();
-  }, []);
+  }, [filters]);
 
   return (
     <Box>
@@ -51,7 +57,10 @@ function ListPage(props) {
           </Grid>
 
           <Grid item className={classes.right}>
-            <Paper elevation={0}>{loading ? <ProductSkeletonList /> : <ProductList data={productList} />}</Paper>
+            <Paper elevation={0}>
+              {loading ? <ProductSkeletonList /> : <ProductList data={productList} />}
+              <Pagination color="primary" count={5} page={2}></Pagination>
+            </Paper>
           </Grid>
         </Grid>
       </Container>
