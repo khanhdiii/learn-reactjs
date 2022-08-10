@@ -1,5 +1,5 @@
 import axiosClient from './axiosClient';
-const CategoryApi = {
+const categoryApi = {
   getAll(params) {
     const url = '/categories';
     return axiosClient.get(url, { params: params });
@@ -26,4 +26,4 @@ const CategoryApi = {
   },
 };
 
-export default CategoryApi;
+export default categoryApi;
