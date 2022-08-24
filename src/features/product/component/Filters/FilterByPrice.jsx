@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Button, makeStyles, TextField, Typography } from '@material-ui/core';
-import { BorderTop } from '@material-ui/icons';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -14,6 +13,7 @@ const useStyle = makeStyles((theme) => ({
     flexFlow: 'row nowrap',
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
+
     '& > span': {
       marginRight: theme.spacing(1),
       marginLeft: theme.spacing(1),
@@ -40,8 +40,9 @@ function FilterByPrice({ onChange }) {
     }));
   };
 
-  const HandleSubmit = () => {
-    if (onChange && Number.parseInt(values.salePrice_lte) > 0) onChange(values);
+  const handleSubmit = () => {
+    if (onChange ) onChange(values);
+    
     setValues({
       salePrice_gte: 0,
       salePrice_lte: 0,
@@ -50,12 +51,14 @@ function FilterByPrice({ onChange }) {
   return (
     <Box className={classes.root}>
       <Typography variant="subtitle2">KHOẢNG GIÁ</Typography>
+
       <Box className={classes.range}>
         <TextField name="salePrice_gte" value={values.salePrice_gte} onChange={handlePriceChange} />
         <span>-</span>
         <TextField name="salePrice_lte" value={values.salePrice_lte} onChange={handlePriceChange} />
       </Box>
-      <Button variant="outlined" color="primary" size="small" onClick={HandleSubmit}>
+
+      <Button variant="outlined" color="primary" size="small" onClick={handleSubmit}>
         Áp dụng
       </Button>
     </Box>

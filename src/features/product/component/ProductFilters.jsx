@@ -15,8 +15,7 @@ function ProductFilters({ filters, onChange }) {
     if (!onChange) return;
 
     const newFilters = {
-      'category.id': newCategoryId.id,
-      'category.name': newCategoryId.name,
+      'category.id': newCategoryId,
     };
     onChange(newFilters);
   };
@@ -25,15 +24,10 @@ function ProductFilters({ filters, onChange }) {
     if (onChange) onChange(values);
   };
 
-  const handlePriceChange = (values) => {
-    if (onchange) {
-      onchange(values);
-    }
-  };
   return (
     <Box>
       <FilterByCategory onChange={handleCategoryChange} />
-      <FilterByPrice onChange={handlePriceChange} />
+      <FilterByPrice onChange={handleChange} />
       <FilterByService filters={filters} onChange={handleChange} />
     </Box>
   );

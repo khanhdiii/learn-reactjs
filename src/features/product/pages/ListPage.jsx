@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, Container, Grid, makeStyles, Paper } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import productApi from 'api/productApi';
