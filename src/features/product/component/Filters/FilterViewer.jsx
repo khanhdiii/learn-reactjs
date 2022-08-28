@@ -72,20 +72,20 @@ const FILTER_LIST = [
     },
     onToggle: () => {},
   },
-  {
-    id: 4,
-    getLabel: (filters) => `${filters['category.name']}`,
-    isActive: () => true,
-    isVisible: (filters) => filters['category.name'],
-    isRemovable: true,
-    onRemove: (filters) => {
-      const newFilters = { ...filters };
-      delete newFilters['category.name'];
-      delete newFilters['category.id'];
-      return newFilters;
-    },
-    onToggle: () => {},
-  },
+  // {
+  //   id: 4,
+  //   getLabel: (filters) => `${filters['category.name']}`,
+  //   isActive: () => true,
+  //   isVisible: (filters) => filters['category.name'],
+  //   isRemovable: true,
+  //   onRemove: (filters) => {
+  //     const newFilters = { ...filters };
+  //     delete newFilters['category.name'];
+  //     delete newFilters['category.id'];
+  //     return newFilters;
+  //   },
+  //   onToggle: () => {},
+  // },
 ];
 function FilterViewer({ filters = {}, onChange = null }) {
   const classes = useStyles();
@@ -95,34 +95,37 @@ function FilterViewer({ filters = {}, onChange = null }) {
 
   return (
     <Box component="ul" className={classes.root}>
-      {visibleFilters.map((x) => (
-        <li key={x.id}>
-          <Chip
-            label={x.getLabel(filters)}
-            color={x.isActive(filters) ? 'primary' : 'default'}
-            clickable={!x.isRemovable}
-            onClick={
-              x.isRemovable
-                ? null
-                : () => {
-                    if (!onChange) return;
-                    const newFilters = x.onToggle(filters);
-                    onChange(newFilters);
-                  }
-            }
-            onDelete={
-              x.isRemovable
-                ? () => {
-                    if (!onChange) return;
-                    const newFilters = x.onRemove(filters);
-                    onChange(newFilters);
-                  }
-                : null
-            }
-          ></Chip>
-        </li>
-      ))}
-    </Box>
+    {visibleFilters.map((x) => (
+      <li key={x.id}>
+        <Chip
+          label={x.getLabel(filters)}
+          color={x.isActive(filters) ? 'primary' : 'default'}
+          clickable={!x.isRemovable}
+          size="small"
+          onClick={
+            x.isRemovable
+              ? null
+              : () => {
+                  if (!onChange) return;
+
+                  const newFilters = x.onToggle(filters);
+                  onChange(newFilters);
+                }
+          }
+          onDelete={
+            x.isRemovable
+              ? () => {
+                  if (!onChange) return;
+
+                  const newFilters = x.onRemove(filters);
+                  onChange(newFilters);
+                }
+              : null
+          }
+        />
+      </li>
+    ))}
+  </Box>
   );
 }
 
