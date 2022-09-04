@@ -18,7 +18,7 @@ function App() {
         <Route path="/albums" component={AlbumFeature}/>
         <Route path="/products" component={ProductFeature}/>
 
-        <Route component={NotFound}></Route>
+        <Route component={NotFound}/>
       </Switch>
     </div>
   );

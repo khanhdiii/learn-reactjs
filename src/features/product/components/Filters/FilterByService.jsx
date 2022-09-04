@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Button, Checkbox, FormControlLabel, makeStyles, TextField, Typography } from '@material-ui/core';
-import { BorderTop } from '@material-ui/icons';
 
 FilterByService.propTypes = {
   filters: PropTypes.object,
@@ -29,6 +28,7 @@ function FilterByService({ filters = {}, onChange }) {
 
   const handleChange = (e) => {
     if (!onChange) return;
+    
     const { name, checked } = e.target;
     onChange({
       [name]: checked,
