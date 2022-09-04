@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Chip, makeStyles } from '@material-ui/core';
+import { Category } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   root: {
