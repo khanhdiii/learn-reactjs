@@ -1,0 +1,32 @@
+.Detail{
+    
+    &-name{
+        color: red;
+        text-transform: uppercase;
+    }
+    
+    &-shortdescription{
+        font-size: 5px;
+        margin: 2 0;
+    }
+}
+
+.PriceBox{
+    padding-bottom: 10px;
+    border-bottom: 1px solid gray;
+    .Label-salePrice{
+        font-size: medium;
+        font-weight: bold;
+        font-size: xx-large;
+        
+    }
+    .Detail-salePrice{
+        font-size: xx-large;
+        color: red;
+    }
+    .Detail-originalPrice{
+        font-size: medium;
+        text-decoration: line-through;
+    }
+    .Detail-promotionPercent{}
+}

@@ -129,7 +129,7 @@ function ListPage(props) {
               <ProductSort currentSort={queryParams._sort} onChange={handleSortChange} />
               <FilterViewer filters={queryParams} onChange={setNewFilters} />
 
-              {loading ? <ProductSkeletonList length={9} /> : <ProductList data={productList} />}
+              {loading ? <ProductSkeletonList length={12} /> : <ProductList data={productList} />}
 
               <Box className={classes.pagination}>
                 <Pagination
