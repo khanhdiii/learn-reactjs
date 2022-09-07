@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useHistory } from 'react-router';
 
-
 Product.propTypes = {
   product: PropTypes.object,
 };
@@ -14,6 +13,7 @@ function Product({ product }) {
   const thumbnailUrl = product.thumbnail ? `${STATIC_HOST}${product.thumbnail?.url}` : THUMBNAIL_PLACEHOLDER;
 
   const handleClick = () => {
+    //Navigate to detail page: /products/${product.id}
     history.push(`/products/${product.id}`);
   };
 
@@ -26,10 +26,10 @@ function Product({ product }) {
       <Typography variant="body2">{product.name}</Typography>
       <Typography variant="body2">
         <Box component="span" fontSize="16px" fontWeight="bold" mr={1}>
-          {(product.salePrice)}
+          {new Intl.NumberFormat('vi-VI', { style: 'currency', currency: 'VND' }).format(product.salePrice)}
         </Box>
 
-        {product.promotionPercent > 0 ? ` -${product.promotionPercent}%` : ''}
+        {product.promotionPercent > 0 ? ` - ${product.promotionPercent}%` : ''}
       </Typography>
     </Box>
   );
