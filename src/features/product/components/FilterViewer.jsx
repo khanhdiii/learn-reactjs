@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Chip, makeStyles } from '@material-ui/core';
-import { Category } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,7 +68,10 @@ const FILTER_LIST = [
   },
   {
     id: 4,
-    getLabel: (filters) => `Danh mục: ${filters['category.id']}`,
+    getLabel: (filters) => {
+      console.log(filters);
+      return `Danh mục: ${filters['category.name']}`;
+    },
     isActive: () => true,
     isVisible: (filters) => filters['category.id'],
     isRemovable: true,

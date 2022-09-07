@@ -16,8 +16,8 @@ const useStyles = makeStyles((theme) => ({
   menu: {
     padding: '0',
     margin: '0',
-    listStyleType:'none',
-   
+    listStyleType: 'none',
+
     '& > li': {
       marginTop: theme.spacing(1),
       transition: 'all .25s',
@@ -52,7 +52,7 @@ function FilterByCategory({ onChange }) {
   }, []);
 
   const handleCategoryClick = (category) => {
-    if (onChange) onChange(category.id);
+    if (onChange) onChange(category.id, category.name);
   };
 
   return (
