@@ -53,6 +53,7 @@ function DetailPage() {
             </Grid>
           </Grid>
         </Paper>
+        <ProductMenu />
       </Container>
     </Box>
   );
