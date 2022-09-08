@@ -1,10 +1,9 @@
+import React from 'react';
 import { Box, IconButton, Menu, MenuItem } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -13,7 +12,7 @@ import CodeIcon from '@material-ui/icons/Code';
 import Login from 'features/Auth/components/Login';
 import Register from 'features/Auth/components/Register';
 import { logout } from 'features/Auth/userSlice';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 
@@ -105,14 +104,14 @@ export default function Header() {
         </Toolbar>
       </AppBar>
       <Dialog
-        disableBackdropClick
+        // disableBackdropClick
         disableEscapeKeyDown
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <IconButton>
-          <Close className={classes.closeBtn} onClick={handleClose}></Close>
+        <IconButton onClick={handleClose}>
+          <Close className={classes.closeBtn}></Close>
         </IconButton>
         <DialogContent>
           {mode === MODE.REGISTER && (

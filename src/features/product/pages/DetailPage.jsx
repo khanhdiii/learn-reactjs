@@ -5,6 +5,8 @@ import ProductThumbnail from '../components/ProductThumbnail';
 import { useRouteMatch } from 'react-router-dom';
 import useProductDetail from '../hooks/useProductDetail';
 import ProductInfo from '../components/ProductInfo';
+import AddToCartForm from '../components/AddToCartForm';
+import ProductMenu from '../components/ProductMenu';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -33,6 +35,9 @@ function DetailPage() {
     return <Box>Loading</Box>;
   }
 
+  const handleAddToCartSubmit = (formValues) => {
+    console.log('form', formValues);
+  };
   return (
     <Box className={classes.root}>
       <Container>
@@ -44,6 +49,7 @@ function DetailPage() {
 
             <Grid item className={classes.right}>
               <ProductInfo product={product} />
+              <AddToCartForm onSubmit={handleAddToCartSubmit} />
             </Grid>
           </Grid>
         </Paper>
