@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Container, Grid, makeStyles, Paper } from '@material-ui/core';
+import { Box, Container, Grid, LinearProgress, makeStyles, Paper } from '@material-ui/core';
 import ProductThumbnail from '../components/ProductThumbnail';
-import { useRouteMatch } from 'react-router-dom';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import useProductDetail from '../hooks/useProductDetail';
 import ProductInfo from '../components/ProductInfo';
 import AddToCartForm from '../components/AddToCartForm';
 import ProductMenu from '../components/ProductMenu';
+import ProductDescription from '../components/ProductDescription';
+import ProductAdditional from '../components/ProductAdditional';
+import ProductReview from '../components/ProductReview';
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: { paddingBottom: theme.spacing(3) },
 
   left: {
     width: '400px',
@@ -21,18 +24,30 @@ const useStyles = makeStyles((theme) => ({
     flex: '1 1 0',
     marginLeft: 20,
   },
+
+  loading: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+  },
 }));
 
 function DetailPage() {
   const classes = useStyles();
   const {
     params: { productId },
+    url,
   } = useRouteMatch();
 
   const { product, loading } = useProductDetail(productId);
 
   if (loading) {
-    return <Box>Loading</Box>;
+    return (
+      <Box className={classes.loading}>
+        <LinearProgress />
+      </Box>
+    );
   }
 
   const handleAddToCartSubmit = (formValues) => {
@@ -54,6 +69,14 @@ function DetailPage() {
           </Grid>
         </Paper>
         <ProductMenu />
+        <Switch>
+          <Route exact path={url}>
+            <ProductDescription product={product} />
+          </Route>
+
+          <Route path={`${url}/additional`} component={ProductAdditional} />
+          <Route path={`${url}/reviews`} component={ProductReview} />
+        </Switch>
       </Container>
     </Box>
   );
