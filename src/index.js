@@ -11,7 +11,7 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename="/learn-reactjs">
         <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
           <App />
         </SnackbarProvider>
@@ -25,4 +25,3 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-

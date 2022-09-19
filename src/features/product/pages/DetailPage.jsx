@@ -10,6 +10,8 @@ import ProductMenu from '../components/ProductMenu';
 import ProductDescription from '../components/ProductDescription';
 import ProductAdditional from '../components/ProductAdditional';
 import ProductReview from '../components/ProductReview';
+import { useDispatch } from 'react-redux';
+import { addToCart } from 'features/Cart/cartSlice';
 
 const useStyles = makeStyles((theme) => ({
   root: { paddingBottom: theme.spacing(3) },
@@ -41,6 +43,7 @@ function DetailPage() {
   } = useRouteMatch();
 
   const { product, loading } = useProductDetail(productId);
+  const dispatch = useDispatch();
 
   if (loading) {
     return (
@@ -50,8 +53,24 @@ function DetailPage() {
     );
   }
 
-  const handleAddToCartSubmit = (formValues) => {
-    console.log('form', formValues);
+  const handleAddToCartSubmit = ({ quantity }) => {
+    // console.log('form', formValues);
+
+    const action = addToCart({
+      id: product.id,
+      product,
+      quantity: quantity,
+    });
+    console.log(action);
+    dispatch(action);
+
+    // dispatch(
+    //   addToCart({
+    //     id: product.id,
+    //     product,
+    //     quantity,
+    //   })
+    // );
   };
   return (
     <Box className={classes.root}>

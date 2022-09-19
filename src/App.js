@@ -5,6 +5,7 @@ import TodoFeature from 'features/Todo/pages/ListPage';
 import { Route, Switch } from 'react-router-dom';
 import NotFound from './components/NotFound';
 import AlbumFeature from './features/Album';
+import CartFeature from './features/Cart';
 import CounterFeature from './features/Counter';
 import React from 'react';
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/todos" component={TodoFeature} />
         <Route path="/albums" component={AlbumFeature}/>
         <Route path="/products" component={ProductFeature}/>
+        <Route path="/cart" component={CartFeature}/>
 
         <Route component={NotFound}/>
       </Switch>

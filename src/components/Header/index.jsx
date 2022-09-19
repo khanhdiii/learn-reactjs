@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, IconButton, Menu, MenuItem } from '@material-ui/core';
+import { Badge, Box, IconButton, Menu, MenuItem } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,14 +7,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { AccountCircle, Close } from '@material-ui/icons';
+import { AccountCircle, Close, ShoppingCart } from '@material-ui/icons';
 import CodeIcon from '@material-ui/icons/Code';
 import Login from 'features/Auth/components/Login';
 import Register from 'features/Auth/components/Register';
 import { logout } from 'features/Auth/userSlice';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
+import { cartItemsCountSelector } from 'features/Cart/selectors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,7 +47,10 @@ const MODE = {
 export default function Header() {
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.user.current);
+  const cartItemsCount = useSelector(cartItemsCountSelector);
   const isLoggedIn = !!loggedInUser.id;
+  const history = useHistory();
+
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState(MODE.LOGIN);
@@ -73,6 +77,10 @@ export default function Header() {
     dispatch(action);
   };
 
+  const handleCartClick = () => {
+    history.push('/cart');
+  };
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -80,7 +88,7 @@ export default function Header() {
           <CodeIcon className={classes.menuButton}></CodeIcon>
           <Typography variant="h6" className={classes.title}>
             <Link className={classes.link} to="/">
-              EZ Shop
+              KD shopping
             </Link>
           </Typography>
           <NavLink className={classes.link} to="/todos">
@@ -98,6 +106,12 @@ export default function Header() {
               Login
             </Button>
           )}
+
+          <IconButton aria-label="show 4 new mails" color="inherit" onClick={handleCartClick}>
+            <Badge badgeContent={cartItemsCount} color="secondary">
+              <ShoppingCart />
+            </Badge>
+          </IconButton>
 
           {isLoggedIn && (
             <IconButton color="inherit" onClick={handleClickUser}>
