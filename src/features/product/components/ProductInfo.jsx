@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, makeStyles, Typography } from '@material-ui/core';
-import '../components/scss/ProductInfo.scss';
+// import '../components/scss/ProductInfo.scss';
 import { formatPrice } from 'utils';
 ProductInfo.propTypes = {};
 
